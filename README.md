@@ -92,3 +92,7 @@ https://hukishblog.herokuapp.com/
 
 #### Known bugs
      - N/A
+
+# Support and contact details
+     Contact (hudsonhukish@gmail.com) for further help/support
+     
