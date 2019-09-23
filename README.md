@@ -20,3 +20,10 @@ https://hukishblog.herokuapp.com/
 4. [Bugs](#bugs)
 5. [Contact me](#support-and-contact-details)
 6. [Licensing](#license)
+
+## BDD
+| Behavior           | Input                 | Outcome                            |
+| -------------------|-----------------------| -----------------------------------|
+| request page       | click horuku link url | view other blogs                   |
+| click on a blog    |                       | vote/comment                       |
+| sign in/up         | details pass & user   | view,blog & comment                |
