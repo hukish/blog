@@ -43,3 +43,52 @@ https://hukishblog.herokuapp.com/
     - Heroku
     - Postgresql
     - Flask
+
+
+#### Initialize git and add the remote repository
+    ```bash
+    git init
+    ```
+    ```bash
+    git remote add origin <your-repository-url>
+    ```
+
+#### Create and activate the virtual environment
+    ```bash
+    python3.6 -m virtualenv virtual
+    ```
+
+    ```bash
+    source virtual/bin/activate
+    ```
+
+#### Setting up environment variables
+    Create a `.env` file and paste paste the following filling where appropriate:
+    ```
+    DEBUG=True
+    ```
+
+#### Install dependancies
+    Install dependancies that will create an environment for the app to run
+    `pip install -r requirements.txt`
+
+#### Make and run migrations
+  ```bash
+    python3.6 manage.py make migrations && python3.6 manage.py migrate
+    ```
+
+    #### Run the app
+    ```bash
+    python3.6 manage.py runserver
+    ```
+    Open [localhost:5000](http://127.0.0.1:5000/)
+
+
+## Contributing
+    Please read this [comprehensive guide](https://opensource.guide/how-to-contribute/) on how to contribute. Pull requests are welcome :-)
+
+## Bugs
+    None
+
+#### Known bugs
+     - N/A
