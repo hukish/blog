@@ -44,3 +44,23 @@ class Blog(db.Model):
     def get_blogs(cls):
         blogs = Blog.query.order_by(Blog.posted.desc()).all()
         return blogs
+
+
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    content = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls):
+        comments = Comment.query.order_by(Comment.posted.desc()).all()
+        return comments
+            
