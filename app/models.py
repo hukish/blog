@@ -1,3 +1,13 @@
+from . import db
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+from . import login_manager
+from datetime import datetime
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
@@ -45,7 +55,6 @@ class Blog(db.Model):
         blogs = Blog.query.order_by(Blog.posted.desc()).all()
         return blogs
 
-
 class Comment(db.Model):
 
     __tablename__ = 'comments'
@@ -63,4 +72,3 @@ class Comment(db.Model):
     def get_comments(cls):
         comments = Comment.query.order_by(Comment.posted.desc()).all()
         return comments
-            
