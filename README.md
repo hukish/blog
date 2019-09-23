@@ -27,3 +27,11 @@ https://hukishblog.herokuapp.com/
 | request page       | click horuku link url | view other blogs                   |
 | click on a blog    |                       | vote/comment                       |
 | sign in/up         | details pass & user   | view,blog & comment                |
+
+
+## Setup and installations
+#### Prerequisites
+1. [Python3.6](https://www.python.org/downloads/)
+)
+2. [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
+3. [Pip](https://pip.pypa.io/en/stable/installing/)
