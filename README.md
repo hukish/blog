@@ -95,4 +95,10 @@ https://hukishblog.herokuapp.com/
 
 # Support and contact details
      Contact (hudsonhukish@gmail.com) for further help/support
-     
+### License
+
+     The project is licensed under MIT license https://opensource.org/licenses/MIT
+    
+
+
+Copyright (c)2019 **hudson**     
