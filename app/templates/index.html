@@ -1,72 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      {% extends 'base.html'%}
-      {% import 'macros.html' as macro%}
+{% extends 'base.html' %}
 
-  {% block styles%}
-  {{ super() }}
-  <link href="https://fonts.googleapis.com/css?family=Advent+Pro&display=swap" rel="stylesheet">
-  {% endblock %}
-  {% block content %}
+<!-- Content block -->
+{% block content %}
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body style="overflow-x: hidden">
-  <main style="font-family: 'Advent Pro'">
-  <div style="display: flex;justify-content: center; margin-top: 3rem" class="text-center">
-  <h2 style="text-align: center;font-family: 'Luckiest Guy', cursive; letter-spacing: 4px; font-size: 3.5em; font-weight: bolder">W<span style="color: crimson">E</span>LCOM<span style="color: crimson">E</span></h2>
-</div>
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      {% for item in quote%}
-      <h3 class="text-center">" {{item.quote}} "</h3>
-      <p class="text-center"> ~ {{item.author}}</p>
-      {% endfor %}
+    <head>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Rokkitt" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.5/css/mdb.min.css" rel="stylesheet">
+        <title> {{ title }} </title>
+    </head>
+
+
+    <!--Header-->
+    <div class="row d-flex justify-content-center" >
+        <h1 class="black-text mb-3 pt-3 font-weight-bold">MY BLOG</h1>
     </div>
 
-  </div>
-
-    <div style="font-family:'Advent Pro';font-size: larger" class="container">
-
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-        {% if current_user.is_authenticated%}
-
-
-          <h2><u>Welcome {{ current_user.username }}</u></h2>
-
-
-        <h2>Getting started:</h2>
-            <ol>
-                <li>View all blogs ideas in our blog page</li>
-                <li>To get access to comment sign up if knew to this site</li>
-                <li>you can login and logout from your accouunst</li>
-
-            </ol>
-
-        {% else %}
-
-        <h2>Get started:</h2>
-            <ol>
-                <li>View all blogs ideas in our blog page</li>
-                <li>To get access to comment sign up if knew to this site</li>
-                <li>you can login and logout from your accouunst</li>
-        {%endif%}
-                {%if current_user.is_authenticated%}
-                <h4 class="text-left"><a class="btn btn-success" href="{{url_for('main.new_blog')}}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Post Blog</a></h4>
-                {% endif %}
-          {{ macro.displayCategoryList(categories) }}
+    <div class="row mt-2 mb-3 d-flex justify-content-center" style="background-color:rgba(201, 196, 196, 0.603);">
+        <div class="" style="font-size: 20px; margin-top:40px">
+            {{ quotes.quote }}
+            <cite title="Source Title"> {{ quotes.author }} </cite>
         </div>
-        <div class="wells" s>
-        {{ macro.displayBlogs(blogs) }}
 
-        </div>
-<!-- {% endblock %} -->
+
     </div>
-</div>
-</main>
-</body>
-</html>
+    </div>
+
+
+
+{% endblock %}
