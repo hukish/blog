@@ -12,3 +12,11 @@ This is a flask application for blogging. Users have to sign up to blog and view
 
 #### Link to deployed site
 https://hukishblog.herokuapp.com/
+
+## Table of content
+1. [Description](#description)
+2. [Setup and installations](#setup-and-installations)
+3. [Contributing](#contributing)
+4. [Bugs](#bugs)
+5. [Contact me](#support-and-contact-details)
+6. [Licensing](#license)
