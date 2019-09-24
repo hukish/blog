@@ -1,87 +1,55 @@
 from flask import render_template,request,redirect,url_for,abort
 from flask_login import login_required,current_user
 from . import main
-from .forms import UpdateProfile,PostAblog,PostAComment
-from .. import db
-from ..models import User,Blog,Comment
-from ..requests import get_quotes
+from .. import db,photos
+from ..models import User,Role,Blog,Comment
+from .forms import UpdateProfile,BlogForm,CommentForm
 
-# Views
+# View function for the landing page
 @main.route('/')
 def index():
 
-    '''
-    View root page function that returns the index page and its data
-    '''
+    Gaming = Blog.query.filter_by(category="Gaming").all()
+    Career = Blog.query.filter_by(category="Career").all()
+    Finance = Blog.query.filter_by(category="Finance").all()
+    Gossip = Blog.query.filter_by(category="Gossip").all()
+    Sports = Blog.query.filter_by(category="Sports").all()
+    Fitness = Blog.query.filter_by(category="Fitness").all()
 
-    title = 'Home'
-    quotes = get_quotes()
+    blogs = Blog.query.filter().all()
+    return render_template('index.html',Gaming=Gaming,Career=Career,Finance=Finance,Gossip=Gossip,Sports=Sports,Fitness=Fitness,blogs=blogs)
 
-    return render_template('index.html', title = title, quotes=quotes )
-
-@main.route('/account/<uname>',methods=['GET','POST'])
-@login_required
-def account(uname):
-
-    '''
-    View root page function that returns the profile page and its data
-    '''
-
-    title = 'Profile'
+# View function for profile
+@main.route('/user/<uname>')
+def profile(uname):
     user = User.query.filter_by(username = uname).first()
 
     if user is None:
-        abort('fourOwfour')
-    blogs = Blog.query.order_by(Blog.posted.desc()).all()
+        abort(404)
 
-    return render_template('account.html', user = user, blogs=blogs)
+    return render_template("profile/profile.html", user = user)
 
-@main.route('/update/<uname>',methods=['GET','POST'])
+# Update profile view function
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
-def update(uname):
-
-    '''
-    View root page function that returns the update page and its data
-    '''
-    blog_form = PostAblog()
-    if update_form.validate_on_submit():
-        title = update_form.title.data
-        blog = update_form.text.data
-
+def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
-
     if user is None:
-        abort('fourOwfour')
-    blogs = Blog.query.order_by(Blog.posted.desc()).all()
+        abort(404)
 
-    return render_template('update.html', user = user, blogs=blogs)
+    form = UpdateProfile()
 
+    if form.validate_on_submit():
+        user.bio = form.bio.data
 
-@main.route('/blogs',methods=['GET','POST'])
-def blog():
+        db.session.add(user)
+        db.session.commit()
 
-        form = PostAblog()
-        if form.validate_on_submit():
-            new_blog = Blog(title=form.title.data, content=form.content.data, user_id=current_user.id)
-            new_blog.save_blog()
-            return redirect(url_for('main.blog'))
-        blogs= Blog.get_blogs()
-        users = User.query.all()
+        return redirect(url_for('.profile',uname=user.username))
 
-        return render_template('blogs.html',blogs=blogs,users=users, form=form )
+    return render_template('profile/update.html',form =form)
 
-@main.route('/comment')
-def comment():
-
-    '''
-    View root page function that returns the comments page and its data
-    '''
-
-    title = 'Comment'
-
-
-    return render_template('comment.html', title = title )
-
+# update photos view function
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
 def update_pic(uname):
@@ -91,22 +59,60 @@ def update_pic(uname):
         path = f'photos/{filename}'
         user.profile_pic_path = path
         db.session.commit()
-    return redirect(url_for('update.html',uname=uname))
-
-@main.route('/blog/new', methods=['GET', 'POST'])
+    return redirect(url_for('main.profile',uname=uname))
+# Blog view function
+@main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
-    blog_form = PostAblog()
+    blog_form = BlogForm()
+
+
     if blog_form.validate_on_submit():
-        title = blog_form.title.data
-        blog = blog_form.text.data
 
-        # Updated blog instance
-        new_blog = Blog(blog_title=title, blog_content=blog, user=current_user)
+        blog_title= blog_form.blog_title.data
+        blog_description= blog_form.blog_description.data
+        story= blog_form.story.data
+        category= blog_form.category.data
 
-        # Save blog method
+        # Updated  instance
+        new_blog = Blog(blog_title=blog_title,blog_description=blog_description,story=story,category=category,user=current_user)
+        blogs = Blog.query.filter().all()
+        # save  method
         new_blog.save_blog()
-        return redirect(url_for('.index'))
 
-    title = 'New blog'
-    return render_template('blogs.html', title=title)
+        return redirect(url_for('main.blog'))
+
+    title = 'New Blog'
+    return render_template('new_blog.html',title = title, blog_form=blog_form)
+
+# View function to display blog articles
+@main.route('/blog', methods = ['GET','POST'])
+@login_required
+def blog():
+    Gaming = Blog.query.filter_by(category="Gaming").all()
+    Career = Blog.query.filter_by(category="Career").all()
+    Finance = Blog.query.filter_by(category="Finance").all()
+    Gossip = Blog.query.filter_by(category="Gossip").all()
+    Sports = Blog.query.filter_by(category="Sports").all()
+    Fitness = Blog.query.filter_by(category="Fitness").all()
+
+    blogs = Blog.query.filter().all()
+
+    return render_template('blogs.html',Gaming=Gaming,Career=Career,Finance=Finance,Gossip=Gossip,Sports=Sports,Fitness=Fitness,blogs=blogs)
+
+# The view function for comments
+@main.route('/comment/<int:id>', methods = ['GET','POST'])
+@login_required
+def new_comment(id):
+    comment = Comment.query.filter_by(blog_id=id)
+
+    form_comment = CommentForm()
+    if form_comment.validate_on_submit():
+        comment = form_comment.details.data
+
+        new_comment = Comment(comment= comment,blog_id=id,user=current_user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
+    return render_template('comments.html',form_comment = form_comment,comment=comment)

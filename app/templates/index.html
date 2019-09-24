@@ -1,36 +1,92 @@
 {% extends 'base.html' %}
+{% import 'macros.html' as macro%}
+<!-- Styles Block -->
 
-<!-- Content block -->
-{% block content %}
-
-    <head>
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Rokkitt" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-        <!-- Bootstrap core CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Material Design Bootstrap -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.5/css/mdb.min.css" rel="stylesheet">
-        <title> {{ title }} </title>
-    </head>
-
-
-    <!--Header-->
-    <div class="row d-flex justify-content-center" >
-        <h1 class="black-text mb-3 pt-3 font-weight-bold">MY BLOG</h1>
-    </div>
-
-    <div class="row mt-2 mb-3 d-flex justify-content-center" style="background-color:rgba(201, 196, 196, 0.603);">
-        <div class="" style="font-size: 20px; margin-top:40px">
-            {{ quotes.quote }}
-            <cite title="Source Title"> {{ quotes.author }} </cite>
-        </div>
-
-
-    </div>
-    </div>
-
-
-
+{% block Styles%}
+{{ super ()}}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock %}
+
+<!-- This describes what will appear on the landing page -->
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+<title>BLOGS</title>
+  <!-- Header -->
+  <section class="text-black text-center section-1">
+        <header class="masthead text-center text-black d-flex">
+            <div class="container-fluid">
+                    <div class="jumbotron">
+              <div class="row">
+                <div class="col-lg-10 mx-auto">
+                  <h1><strong>Welcome to my blog</strong></h1>
+                  <a class="btn btn-light btn-xl sr-button" href="{{url_for('auth.login')}}">Get Started</a>
+                  <hr>
+                </div>
+            </div>
+                <div class="col-lg-8 mx-auto">
+                </div>
+              </div>
+            </div>
+        </header>
+    </section>
+
+<!-- Blogs section -->
+<div class="row" id="gaming">
+        <div class="category col-md-12">
+            <h4 class="blog_title">Gaming</h4>
+            <ul>
+                {{macro.displayBlogs(Gaming)}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="career">
+        <div class="category col-md-12">
+            <h4 class="blog_title">Career</h4>
+            <ul>
+                {{macro.displayBlogs(Career)}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="fianace">
+        <div class="category col-md-12">
+            <h4 class="blog_title">Finance</h4>
+            <ul>
+                {{macro.displayBlogs(Finance)}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="gossip">
+        <div class="category col-md-12">
+            <h4 class="blog_title">Gossip</h4>
+            <ul>
+                {{macro.displayBlogs(Gossip)}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="fitness">
+        <div class="category col-md-12">
+            <h4 class="blog_title">Finance</h4>
+            <ul>
+                {{macro.displayBlogs(Finance)}}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock%}
+</html>
+

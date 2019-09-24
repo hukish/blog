@@ -1,17 +1,32 @@
 from flask_wtf import FlaskForm
+from wtforms import StringField,TextAreaField,SubmitField,SelectField
 from wtforms.validators import Required
-from wtforms import TextAreaField,SubmitField,StringField
-from ..models import User
+
+
+
+class BlogForm(FlaskForm):
+
+    blog_title = StringField('Place your blog title here',validators=[Required()])
+    blog_description = StringField('Give a brief blog description',validators=[Required()])
+    story = TextAreaField('Give the blog content',validators=[Required()])
+    category = SelectField('Category', choices=[('Gaming','Gaming'),('Career','Career'),('Finance','Finance'),('Sports','Sports'),('Fitness','Fitness')], validators=[Required()])
+    submit = SubmitField('Post')
+
+class CommentForm(FlaskForm):
+
+    details = TextAreaField('Your comment',validators=[Required()])
+
+    submit = SubmitField('Comment')
+
 
 class UpdateProfile(FlaskForm):
-    bio = TextAreaField('Update bio.',validators = [Required()])
-    submit = SubmitField('Update')
+    bio = TextAreaField('Tell us about you.',validators = [Required()])
+    submit = SubmitField('Submit')
 
-class PostAblog (FlaskForm):
-    title = StringField('Title',validators = [Required()])
-    content = TextAreaField('Start blogging',validators = [Required()])
-    submit = SubmitField('Blog')
+# class DeletePost(FlaskForm):
+#     comment_id = StringField()
+#     delete = SubmitField('Delete')
 
-class PostAComment (FlaskForm):
-    comment = TextAreaField(validators = [Required()])
-    submit = SubmitField('Comment',validators = [Required()])
+class UpdateProfile(FlaskForm):
+    bio = TextAreaField('Tell us about you.',validators = [Required()])
+    submit = SubmitField('Submit')
