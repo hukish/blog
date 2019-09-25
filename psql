@@ -1,0 +1,14 @@
+=== DATABASE_URL
+Plan:                  Hobby-dev
+Status:                Available
+Connections:           0/20
+PG Version:            11.5
+Created:               2019-09-25 07:18 UTC
+Data Size:             8.2 MB
+Tables:                5
+Rows:                  6/10000 (In compliance)
+Fork/Follow:           Unsupported
+Rollback:              Unsupported
+Continuous Protection: Off
+Add-on:                postgresql-regular-46332
+
