@@ -3,9 +3,12 @@ import os
 # This configures our application to behave as required
 
 class Config:
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") 
     # Defines the key required by the flask forms
     SECRET_KEY =    '1234'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
+
+
     # Defines where the users profile pictures will be stored
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
@@ -13,18 +16,21 @@ class Config:
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get("hudsonhukish@gmail.com")
-    MAIL_PASSWORD = os.environ.get("NOTEKCS158M")
+    MAIL_USERNAME = "hudsonhukish@gmail.com"
+    MAIL_PASSWORD = "NOTEKCS158M"
+
+    def init_app(app):
+        pass
 
 
 # This defines the configurations during production of the application
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") 
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
    
     pass
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
+    #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
    
     
 
