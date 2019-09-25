@@ -25,7 +25,8 @@ class Config:
 
 # This defines the configurations during production of the application
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") 
+    
    
     pass
 
