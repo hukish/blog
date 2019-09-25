@@ -6,7 +6,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") 
     # Defines the key required by the flask forms
     SECRET_KEY =    '1234'
-    #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
 
 
     # Defines where the users profile pictures will be stored
@@ -26,7 +26,7 @@ class Config:
 # This defines the configurations during production of the application
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson'
+   
     
     
    
@@ -35,7 +35,7 @@ class ProdConfig(Config):
 class DevConfig(Config):
     
    
-    
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://hudson:1234@localhost/hudson' 
 
     DEBUG = True
 
