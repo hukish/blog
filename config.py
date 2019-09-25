@@ -4,7 +4,7 @@ import os
 
 class Config:
     # Defines the key required by the flask forms
-    SECRET_KEY = '1234'
+    SECRET_KEY ='1234'
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     # Defines where the users profile pictures will be stored
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
@@ -16,7 +16,6 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
-    MAIL_PASSWORD
 
 # This defines the configurations during production of the application
 class ProdConfig(Config):
